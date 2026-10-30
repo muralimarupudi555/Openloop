@@ -2,8 +2,8 @@
   "deltas": {
     "closed_p50_delta_pct": 8.24,
     "omitted_delta_pct": 16.67,
-    "open_p50_delta_pct": 12.62,
-    "open_p99_delta_pct": 2.0
+    "open_p50_delta_pct": 14.87,
+    "open_p99_delta_pct": 6.12
   },
   "note": "deltas are machine-dependent; only tolerance_pct and passed may be quoted",
   "passed": true,
@@ -51,13 +51,13 @@
       "completed": 486,
       "generator": "closed",
       "intended": 500,
-      "max_ms": 323.461,
+      "max_ms": 323.885,
       "omitted": 14,
       "omitted_fraction": 0.028,
       "percentiles_ms": {
         "50.0": 26.073,
         "90.0": 35.091,
-        "99.0": 52.143,
+        "99.0": 53.186,
         "99.9": 322.411
       },
       "sent": 486
@@ -66,14 +66,14 @@
       "completed": 510,
       "generator": "open",
       "intended": 510,
-      "max_ms": 320.505,
+      "max_ms": 329.717,
       "omitted": 0,
       "omitted_fraction": 0.0,
       "percentiles_ms": {
-        "50.0": 27.126,
+        "50.0": 27.669,
         "90.0": 36.508,
-        "99.0": 204.459,
-        "99.9": 322.411
+        "99.0": 212.719,
+        "99.9": 328.859
       },
       "sent": 510
     }

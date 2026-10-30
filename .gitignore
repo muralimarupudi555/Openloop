@@ -11,3 +11,5 @@ dist/
 build/
 .venv/
 reports/
+docs/video/demo.webm
+docs/video/player.html
