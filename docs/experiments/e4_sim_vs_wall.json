@@ -1,0 +1,81 @@
+{
+  "deltas": {
+    "closed_p50_delta_pct": 8.24,
+    "omitted_delta_pct": 16.67,
+    "open_p50_delta_pct": 12.62,
+    "open_p99_delta_pct": 0.0
+  },
+  "note": "deltas are machine-dependent; only tolerance_pct and passed may be quoted",
+  "passed": true,
+  "question": "does the real clock agree with the virtual one?",
+  "sim": {
+    "closed": {
+      "completed": 488,
+      "generator": "closed",
+      "intended": 500,
+      "max_ms": 316.381,
+      "omitted": 12,
+      "omitted_fraction": 0.024,
+      "percentiles_ms": {
+        "50.0": 24.087,
+        "90.0": 32.418,
+        "99.0": 51.12,
+        "99.9": 316.089
+      },
+      "sent": 488
+    },
+    "open": {
+      "completed": 510,
+      "generator": "open",
+      "intended": 510,
+      "max_ms": 318.981,
+      "omitted": 0,
+      "omitted_fraction": 0.0,
+      "percentiles_ms": {
+        "50.0": 24.087,
+        "90.0": 33.067,
+        "99.0": 200.45,
+        "99.9": 316.089
+      },
+      "sent": 510
+    }
+  },
+  "spec": {
+    "duration_s": 10.0,
+    "rate_rps": 50.0,
+    "stall_duration_s": 0.3
+  },
+  "tolerance_pct": 25.0,
+  "wall": {
+    "closed": {
+      "completed": 486,
+      "generator": "closed",
+      "intended": 500,
+      "max_ms": 324.667,
+      "omitted": 14,
+      "omitted_fraction": 0.028,
+      "percentiles_ms": {
+        "50.0": 26.073,
+        "90.0": 35.091,
+        "99.0": 53.186,
+        "99.9": 322.411
+      },
+      "sent": 486
+    },
+    "open": {
+      "completed": 510,
+      "generator": "open",
+      "intended": 510,
+      "max_ms": 320.794,
+      "omitted": 0,
+      "omitted_fraction": 0.0,
+      "percentiles_ms": {
+        "50.0": 27.126,
+        "90.0": 36.508,
+        "99.0": 200.45,
+        "99.9": 322.411
+      },
+      "sent": 510
+    }
+  }
+}

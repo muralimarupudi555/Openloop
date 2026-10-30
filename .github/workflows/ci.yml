@@ -1,0 +1,100 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.10", "3.11", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install with dev extras
+        run: python -m pip install -e ".[dev]"
+
+      - name: Lint
+        run: ruff check src tests experiments tools
+
+      - name: Tests as their own step
+        run: python -m pytest --junitxml=junit.xml --cov=src/openloop --cov-report=json --cov-report=xml -q
+
+      - name: Enforce the coverage floor
+        run: |
+          python - <<'EOF'
+          import json
+          pct = json.load(open("coverage.json"))["totals"]["percent_covered"]
+          floor = 95.0
+          print(f"coverage {pct:.1f}%, floor {floor}%")
+          raise SystemExit(0 if pct >= floor else 1)
+          EOF
+
+      - name: Re-measure every experiment
+        run: make experiments
+
+      - name: Collect metrics from the artifacts pytest left behind
+        run: python tools/collect_metrics.py --skip-tests
+
+      - name: Fail on any stale published figure
+        run: python tools/check_numbers.py
+
+      - name: Publish the awkward table to the job summary
+        run: |
+          python - <<'EOF'
+          import json, os
+          e2 = json.load(open("docs/experiments/e2_stall.json"))
+          e3 = json.load(open("docs/experiments/e3_sweep.json"))
+          lines = [
+              "## The number the generator would rather not publish",
+              "",
+              "| figure | value |",
+              "|---|---|",
+              f"| closed-loop p99 understatement | {e2['understatement_p99']}x |",
+              f"| intended requests never sent | {e2['omitted']} |",
+              f"| share of schedule silently dropped | {e2['omitted_fraction_pct']}% |",
+              f"| single-stall open-loop p99 ratio (the trap) | {e2['single_stall']['open_p99_understatement']} |",
+              f"| divergence knee with no stall | {e3['knee_rps']} rps |",
+          ]
+          with open(os.environ["GITHUB_STEP_SUMMARY"], "a") as fh:
+              fh.write("\n".join(lines) + "\n")
+          EOF
+
+      - name: Upload experiment JSON
+        uses: actions/upload-artifact@v4
+        with:
+          name: experiments-${{ matrix.python-version }}
+          path: docs/experiments/
+
+  no-extras:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install without the wall extra
+        run: python -m pip install -e . && python -m pip install pytest
+      - name: The core must import and refuse the wall path with guidance
+        run: |
+          python - <<'EOF'
+          from openloop import run_open_loop, WorkloadSpec
+          result = run_open_loop(WorkloadSpec(duration_s=2.0))
+          assert result.completed == result.sent
+          try:
+              from openloop.target import build_app
+              build_app(WorkloadSpec(duration_s=2.0))
+          except ModuleNotFoundError as exc:
+              assert "openloop[wall]" in str(exc), str(exc)
+          else:
+              raise SystemExit("the wall path imported without the extra installed")
+          print("no-extras install behaves")
+          EOF

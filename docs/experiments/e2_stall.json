@@ -1,46 +1,55 @@
 {
   "closed": {
-    "completed": 11907,
+    "completed": 11439,
     "generator": "closed",
     "intended": 12001,
-    "max_ms": 505.341,
-    "omitted": 94,
-    "omitted_fraction": 0.007833,
+    "max_ms": 511.314,
+    "omitted": 562,
+    "omitted_fraction": 0.046829,
     "percentiles_ms": {
       "50.0": 9.687,
-      "90.0": 13.298,
-      "99.0": 17.546,
-      "99.9": 22.253
+      "90.0": 13.564,
+      "99.0": 18.255,
+      "99.9": 498.441
     },
-    "sent": 11907
+    "sent": 11439
   },
-  "closed_p99_blind_to_stall": true,
-  "closed_stall_samples": 8,
-  "closed_stall_share_pct": 0.067,
-  "omitted": 94,
-  "omitted_fraction_pct": 0.78,
+  "closed_stall_share_pct": 0.42,
+  "omitted": 562,
+  "omitted_fraction_pct": 4.7,
   "open": {
     "completed": 11911,
     "generator": "open",
     "intended": 11911,
-    "max_ms": 505.521,
+    "max_ms": 509.423,
     "omitted": 0,
     "omitted_fraction": 0.0,
     "percentiles_ms": {
-      "50.0": 9.687,
-      "90.0": 13.564,
-      "99.0": 20.558,
-      "99.9": 451.453
+      "50.0": 9.881,
+      "90.0": 14.976,
+      "99.0": 433.923,
+      "99.9": 498.441
     },
     "sent": 11911
   },
-  "question": "how much does the closed loop understate one 500 ms stall?",
+  "open_stall_share_pct": 3.16,
+  "question": "how much does the closed loop understate recurring 500 ms pauses?",
+  "single_stall": {
+    "closed_p999_ms": 22.25,
+    "open_p999_ms": 451.45,
+    "open_p99_ms": 20.56,
+    "open_p99_understatement": 1.17,
+    "open_stall_share_pct": 0.54,
+    "p999_understatement": 20.3,
+    "question": "and why a single stall is the wrong demo"
+  },
   "spec": {
     "duration_s": 60.0,
     "rate_rps": 200.0,
     "stall_duration_s": 0.5,
-    "stall_start_s": 30.0
+    "stall_period_s": 10.0,
+    "stall_windows": 6
   },
-  "understatement_p50": 1.0,
-  "understatement_p99": 1.2
+  "understatement_p50": 1.02,
+  "understatement_p99": 23.8
 }

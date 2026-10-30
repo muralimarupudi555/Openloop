@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="420" viewBox="0 0 920 420" role="img" aria-label="openloop architecture">
+  <style>
+    .box { fill: #ffffff; stroke: #3b4a63; stroke-width: 1.6; rx: 8; }
+    .core { fill: #eefcf8; stroke: #159a86; }
+    .docbox { fill: #fff7ea; stroke: #b07d2e; }
+    .name { font: 600 15px Helvetica, Arial, sans-serif; fill: #1d2a3f; }
+    .desc { font: 400 12px Helvetica, Arial, sans-serif; fill: #51607a; }
+    .edge { stroke: #51607a; stroke-width: 1.6; fill: none; marker-end: url(#arrow); }
+    .edgelabel { font: 400 11px Helvetica, Arial, sans-serif; fill: #51607a; }
+  </style>
+  <defs>
+    <marker id="arrow" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto">
+      <path d="M0,0 L9,4.5 L0,9 z" fill="#51607a"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="920" height="420" fill="#f7f9fc"/>
+
+  <rect class="box core" x="30" y="166" width="180" height="78" rx="8"/>
+  <text class="name" x="48" y="196">WorkloadSpec</text>
+  <text class="desc" x="48" y="216">seeded arrivals, slots,</text>
+  <text class="desc" x="48" y="232">service times, stalls</text>
+
+  <rect class="box core" x="300" y="60" width="200" height="78" rx="8"/>
+  <text class="name" x="318" y="90">sim.py</text>
+  <text class="desc" x="318" y="110">discrete-event replay,</text>
+  <text class="desc" x="318" y="126">the source of all numbers</text>
+
+  <rect class="box" x="300" y="282" width="200" height="78" rx="8"/>
+  <text class="name" x="318" y="312">wallclock.py</text>
+  <text class="desc" x="318" y="332">asyncio replay against</text>
+  <text class="desc" x="318" y="348">the in-process target</text>
+
+  <rect class="box" x="560" y="282" width="170" height="78" rx="8"/>
+  <text class="name" x="578" y="312">target.py</text>
+  <text class="desc" x="578" y="332">ASGI app: capacity,</text>
+  <text class="desc" x="578" y="348">FIFO, stall window</text>
+
+  <rect class="box core" x="560" y="60" width="170" height="78" rx="8"/>
+  <text class="name" x="578" y="90">histogram.py</text>
+  <text class="desc" x="578" y="110">log buckets, stated</text>
+  <text class="desc" x="578" y="126">error bound</text>
+
+  <rect class="box" x="560" y="166" width="170" height="78" rx="8"/>
+  <text class="name" x="578" y="196">results.py + cli.py</text>
+  <text class="desc" x="578" y="216">comparison, tables,</text>
+  <text class="desc" x="578" y="232">exit codes 0 / 3 / 1</text>
+
+  <rect class="box docbox" x="770" y="112" width="130" height="64" rx="8"/>
+  <text class="name" x="786" y="140">experiments/</text>
+  <text class="desc" x="786" y="158">E1 to E4 JSON</text>
+
+  <rect class="box docbox" x="770" y="216" width="130" height="78" rx="8"/>
+  <text class="name" x="786" y="244">tools/</text>
+  <text class="desc" x="786" y="262">collect_metrics,</text>
+  <text class="desc" x="786" y="278">check_numbers</text>
+
+  <path class="edge" d="M210,190 C250,160 260,120 300,104"/>
+  <path class="edge" d="M210,220 C250,250 260,296 300,314"/>
+  <path class="edge" d="M500,320 L560,320"/>
+  <path class="edge" d="M500,92 L560,92"/>
+  <path class="edge" d="M645,138 L645,166"/>
+  <path class="edge" d="M645,282 C645,262 645,254 645,244"/>
+  <path class="edge" d="M730,196 C750,186 752,166 770,152"/>
+  <path class="edge" d="M835,176 L835,216"/>
+  <text class="edgelabel" x="222" y="146">virtual clock</text>
+  <text class="edgelabel" x="222" y="282">real clock</text>
+  <text class="edgelabel" x="738" y="178">figures</text>
+  <text class="edgelabel" x="842" y="202">guarded</text>
+</svg>

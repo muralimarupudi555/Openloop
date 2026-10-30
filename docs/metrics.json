@@ -1,0 +1,113 @@
+{
+  "anchors": {
+    "coverage_pct": [
+      "{} percent line and branch coverage",
+      "{} percent coverage"
+    ],
+    "e1_p50_delta_pct": [
+      "measured median delta of {} percent"
+    ],
+    "e1_p99_delta_pct": [
+      "measured p99 delta of {} percent"
+    ],
+    "e2_closed_p99_ms": [
+      "closed loop reports {} ms",
+      "a p99 of {} ms"
+    ],
+    "e2_closed_stall_share_pct": [
+      "{} percent of the closed-loop samples"
+    ],
+    "e2_omitted": [
+      "{} intended requests",
+      "{} requests that",
+      "sent {} fewer"
+    ],
+    "e2_omitted_fraction_pct": [
+      "{} percent of its own schedule"
+    ],
+    "e2_open_p99_ms": [
+      "p99 of {} ms",
+      "open loop reports {} ms"
+    ],
+    "e2_open_stall_share_pct": [
+      "{} percent of the open-loop samples"
+    ],
+    "e2_single_p999_ratio": [
+      "{}x at p99.9"
+    ],
+    "e2_single_p99_ratio": [
+      "ratio collapses to {}",
+      "a ratio of {}"
+    ],
+    "e2_understatement_p99": [
+      "by {}x",
+      "factor of {}"
+    ],
+    "e2_windows": [
+      "{} pauses",
+      "{} windows"
+    ],
+    "e3_capacity_rps": [
+      "a {} rps server",
+      "{} rps of theoretical"
+    ],
+    "e3_knee_rps": [
+      "above {} rps",
+      "at {} rps the"
+    ],
+    "e3_top_ratio": [
+      "ratio reaches {}",
+      "to {} by the top"
+    ],
+    "e4_tolerance_pct": [
+      "within {} percent"
+    ],
+    "hist_error_pct": [
+      "{} percent worst-case",
+      "error of {} percent"
+    ],
+    "tests_total": [
+      "{} tests",
+      "{} of them"
+    ]
+  },
+  "checked_documents": [
+    "README.md",
+    "docs/defense-guide.md",
+    "docs/adr/ADR-001-virtual-clock-receipts.md",
+    "docs/adr/ADR-002-poisson-arrivals.md",
+    "docs/adr/ADR-003-plain-asyncio-over-a-framework.md",
+    "docs/adr/ADR-004-in-repo-histogram.md",
+    "docs/adr/ADR-005-what-this-cannot-measure.md"
+  ],
+  "metrics": {
+    "coverage_pct": 99.4,
+    "e1_p50_delta_pct": 0.0,
+    "e1_p99_delta_pct": 0.0,
+    "e2_closed_p99_ms": 18.3,
+    "e2_closed_stall_share_pct": 0.42,
+    "e2_omitted": 562,
+    "e2_omitted_fraction_pct": 4.7,
+    "e2_open_p99_ms": 433.9,
+    "e2_open_stall_share_pct": 3.16,
+    "e2_single_p999_ratio": 20.3,
+    "e2_single_p99_ratio": 1.17,
+    "e2_understatement_p99": 23.8,
+    "e2_windows": 6,
+    "e3_capacity_rps": 400,
+    "e3_knee_rps": 360,
+    "e3_top_ratio": 3.22,
+    "e4_tolerance_pct": 25,
+    "hist_error_pct": 0.995,
+    "tests_total": 201
+  },
+  "note": "every value here is produced by running the suite and the experiments",
+  "required_in_readme": [
+    "tests_total",
+    "coverage_pct",
+    "e2_understatement_p99",
+    "e2_omitted",
+    "e3_knee_rps",
+    "e4_tolerance_pct"
+  ]
+}
