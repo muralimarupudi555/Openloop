@@ -1,0 +1,4 @@
+*.svg linguist-detectable
+assets/*.svg -linguist-generated
+docs/*.svg -linguist-generated
+Makefile linguist-detectable
