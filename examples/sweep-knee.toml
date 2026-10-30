@@ -1,0 +1,12 @@
+# One point from the E3 sweep: offered load just past the divergence knee
+# of a 400 rps server. No stall anywhere; the closed loop still lies here.
+# Run: python -m openloop.cli compare --config examples/sweep-knee.toml
+
+seed = 7
+duration_s = 30.0
+rate_rps = 360.0
+workers = 8
+service_mean_s = 0.020
+service_sigma = 0.25
+server_capacity = 8
+warmup_s = 5.0

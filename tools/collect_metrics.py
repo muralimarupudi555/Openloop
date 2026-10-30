@@ -60,7 +60,13 @@ def run_tests() -> None:
 
 def read_test_count() -> int:
     """From junit.xml, never from a parsed progress line."""
-    root = ET.parse(ROOT / "junit.xml").getroot()
+    junit = ROOT / "junit.xml"
+    if not junit.exists():
+        raise SystemExit(
+            "collect_metrics: junit.xml not found. Run 'make test' first, "
+            "or drop --skip-tests so the suite runs here."
+        )
+    root = ET.parse(junit).getroot()
     suite = root if root.tag == "testsuite" else root.find("testsuite")
     tests = int(suite.get("tests", 0))
     failures = int(suite.get("failures", 0)) + int(suite.get("errors", 0))

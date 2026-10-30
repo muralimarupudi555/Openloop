@@ -1,0 +1,16 @@
+# The headline scenario from the README, as a config file.
+# Run: python -m openloop.cli compare --config examples/headline.toml
+# Every key is validated; an unknown key is refused rather than ignored.
+
+seed = 7
+duration_s = 60.0
+rate_rps = 200.0          # offered load, aggregate
+workers = 8               # closed-loop connections; pacing interval is workers / rate
+service_mean_s = 0.010    # lognormal service-time mean
+service_sigma = 0.25      # kept tight so the tail is the generator's story, not noise
+server_capacity = 16      # concurrent service slots
+
+# A 500 ms freeze every 10 seconds: the shape of a GC or a rolling deploy.
+stall_start_s = 5.0
+stall_duration_s = 0.5
+stall_period_s = 10.0

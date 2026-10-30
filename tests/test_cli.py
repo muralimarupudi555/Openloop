@@ -89,3 +89,15 @@ class TestConfig:
         config = tmp_path / "work.toml"
         config.write_text("duration_s = 2.0\nrate_rps = 50.0\nseed = 1\n")
         assert main(["run", "--generator", "open", "--config", str(config)]) == EXIT_OK
+
+
+class TestShippedExamples:
+    @pytest.mark.parametrize("example", ["examples/headline.toml", "examples/sweep-knee.toml"])
+    def test_every_shipped_example_config_loads_and_validates(self, example):
+        from pathlib import Path
+
+        from openloop.workload import WorkloadSpec
+
+        root = Path(__file__).resolve().parent.parent
+        spec = WorkloadSpec.from_toml(root / example)
+        assert spec.rate_rps > 0
