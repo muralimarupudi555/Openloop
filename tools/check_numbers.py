@@ -48,6 +48,7 @@ ALLOWLIST_PATTERNS = [
     r"^1\.02$",                     # the histogram growth factor
     r"^25$",                        # the E4 scenario's service mean in ms
     r"^30$",                        # sweep duration in the E3 scenario
+    r"^20$",                        # E3 scenario service mean in ms
 ]
 
 
@@ -63,7 +64,8 @@ def format_value(value) -> str:
 def strip_uncheckable(markdown: str) -> str:
     """Remove fenced code, inline code and HTML tags from a document."""
     no_fences = re.sub(r"```.*?```", " ", markdown, flags=re.DOTALL)
-    no_inline = re.sub(r"`[^`\n]*`", " ", no_fences)
+    # CommonMark code spans may contain newlines (rendered as a space).
+    no_inline = re.sub(r"`[^`]+`", " ", no_fences, flags=re.DOTALL)
     no_html = re.sub(r"<[^>]+>", " ", no_inline)
     return no_html
 

@@ -1,0 +1,32 @@
+[
+  {
+    "title": "openloop compare (calm baseline)",
+    "command": "python -m openloop.cli compare --seed 7 --duration-s 20 --rate-rps 200 --workers 8 --server-capacity 16",
+    "exit_code": 0,
+    "duration_s": 0.2
+  },
+  {
+    "title": "openloop compare (500 ms pause every 10 s)",
+    "command": "python -m openloop.cli compare --seed 7 --duration-s 20 --rate-rps 200 --workers 8 --server-capacity 16 --stall-start-s 5 --stall-duration-s 0.5 --stall-period-s 10",
+    "exit_code": 3,
+    "duration_s": 0.2
+  },
+  {
+    "title": "openloop run --generator closed --json (the omission, itemised)",
+    "command": "python -m openloop.cli run --generator closed --json --seed 7 --duration-s 20 --rate-rps 200 --workers 8 --server-capacity 16 --stall-start-s 5 --stall-duration-s 0.5 --stall-period-s 10",
+    "exit_code": 3,
+    "duration_s": 0.14
+  },
+  {
+    "title": "make experiments (re-measure everything)",
+    "command": "make experiments",
+    "exit_code": 0,
+    "duration_s": 23.46
+  },
+  {
+    "title": "python tools/check_numbers.py (hold the documents to the code)",
+    "command": "python tools/check_numbers.py",
+    "exit_code": 1,
+    "duration_s": 0.05
+  }
+]

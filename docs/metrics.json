@@ -1,8 +1,7 @@
 {
   "anchors": {
     "coverage_pct": [
-      "{} percent line and branch coverage",
-      "{} percent coverage"
+      "{} percent line and branch coverage"
     ],
     "e1_p50_delta_pct": [
       "measured median delta of {} percent"
@@ -11,16 +10,14 @@
       "measured p99 delta of {} percent"
     ],
     "e2_closed_p99_ms": [
-      "closed loop reports {} ms",
-      "a p99 of {} ms"
+      "closed loop reports {} ms"
     ],
     "e2_closed_stall_share_pct": [
       "{} percent of the closed-loop samples"
     ],
     "e2_omitted": [
       "{} intended requests",
-      "{} requests that",
-      "sent {} fewer"
+      "{} fewer requests"
     ],
     "e2_omitted_fraction_pct": [
       "{} percent of its own schedule"
@@ -31,6 +28,9 @@
     ],
     "e2_open_stall_share_pct": [
       "{} percent of the open-loop samples"
+    ],
+    "e2_single_open_share_pct": [
+      "{} percent in the single-stall run"
     ],
     "e2_single_p999_ratio": [
       "{}x at p99.9"
@@ -90,6 +90,7 @@
     "e2_omitted_fraction_pct": 4.7,
     "e2_open_p99_ms": 433.9,
     "e2_open_stall_share_pct": 3.16,
+    "e2_single_open_share_pct": 0.54,
     "e2_single_p999_ratio": 20.3,
     "e2_single_p99_ratio": 1.17,
     "e2_understatement_p99": 23.8,

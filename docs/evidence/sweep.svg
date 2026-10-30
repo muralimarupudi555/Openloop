@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="420" viewBox="0 0 760 420" role="img" aria-label="p99 latency by offered load">
+<rect width="760" height="420" fill="#f7f9fc"/>
+<style>text{font:400 13px Helvetica,Arial,sans-serif;fill:#39465e}.t{font-weight:600;font-size:16px}.s{font-size:11px;fill:#6b7890}</style>
+<text class="t" x="80" y="26">p99 latency against offered load, no stall (E3, simulated)</text>
+<text class="s" x="80" y="44">open loop sees the queue; the closed loop self-limits and reports its own pace</text>
+<line x1="80" y1="356.0" x2="730" y2="356.0" stroke="#dbe2ee" stroke-width="1"/>
+<text class="s" x="70" y="360.0" text-anchor="end">10 ms</text>
+<line x1="80" y1="204.0" x2="730" y2="204.0" stroke="#dbe2ee" stroke-width="1"/>
+<text class="s" x="70" y="208.0" text-anchor="end">100 ms</text>
+<line x1="80" y1="52.0" x2="730" y2="52.0" stroke="#dbe2ee" stroke-width="1"/>
+<text class="s" x="70" y="56.0" text-anchor="end">1000 ms</text>
+<text class="s" x="80.0" y="376" text-anchor="middle">100</text>
+<text class="s" x="219.3" y="376" text-anchor="middle">160</text>
+<text class="s" x="358.6" y="376" text-anchor="middle">220</text>
+<text class="s" x="497.9" y="376" text-anchor="middle">280</text>
+<text class="s" x="590.7" y="376" text-anchor="middle">320</text>
+<text class="s" x="683.6" y="376" text-anchor="middle">360</text>
+<text class="s" x="730.0" y="376" text-anchor="middle">380</text>
+<text class="s" x="405.0" y="406" text-anchor="middle">offered load, requests per second</text>
+<line x1="683.6" y1="52" x2="683.6" y2="356" stroke="#e05d5d" stroke-width="1.5" stroke-dasharray="5 4"/>
+<text class="s" x="689.6" y="66" fill="#b23b3b">divergence knee</text>
+<polyline points="80.0,274.4 219.3,274.4 358.6,273.1 497.9,267.9 590.7,253.5 683.6,224.8 730.0,197.3" fill="none" stroke="#159a86" stroke-width="2.5"/><circle cx="80.0" cy="274.4" r="4" fill="#159a86"/><circle cx="219.3" cy="274.4" r="4" fill="#159a86"/><circle cx="358.6" cy="273.1" r="4" fill="#159a86"/><circle cx="497.9" cy="267.9" r="4" fill="#159a86"/><circle cx="590.7" cy="253.5" r="4" fill="#159a86"/><circle cx="683.6" cy="224.8" r="4" fill="#159a86"/><circle cx="730.0" cy="197.3" r="4" fill="#159a86"/>
+<polyline points="80.0,274.4 219.3,274.4 358.6,273.1 497.9,274.4 590.7,274.4 683.6,274.4 730.0,274.4" fill="none" stroke="#d08a2d" stroke-width="2.5"/><circle cx="80.0" cy="274.4" r="4" fill="#d08a2d"/><circle cx="219.3" cy="274.4" r="4" fill="#d08a2d"/><circle cx="358.6" cy="273.1" r="4" fill="#d08a2d"/><circle cx="497.9" cy="274.4" r="4" fill="#d08a2d"/><circle cx="590.7" cy="274.4" r="4" fill="#d08a2d"/><circle cx="683.6" cy="274.4" r="4" fill="#d08a2d"/><circle cx="730.0" cy="274.4" r="4" fill="#d08a2d"/>
+<text x="88" y="296" fill="#159a86">open loop p99</text>
+<text x="88" y="318" fill="#d08a2d">closed loop p99</text>
+</svg>
