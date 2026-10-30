@@ -49,7 +49,7 @@ def run_tests() -> None:
             "-m",
             "pytest",
             "--junitxml=junit.xml",
-            "--cov=src/openloop",
+            "--cov=openloop",
             "--cov-report=json",
             "-q",
         ],

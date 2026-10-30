@@ -9,7 +9,7 @@ lint:
 	ruff check src tests experiments tools
 
 test:
-	$(PYTHON) -m pytest --junitxml=junit.xml --cov=src/openloop --cov-report=json --cov-report=term
+	$(PYTHON) -m pytest --junitxml=junit.xml --cov=openloop --cov-report=json --cov-report=term
 
 experiments:
 	$(PYTHON) experiments/e1_null.py

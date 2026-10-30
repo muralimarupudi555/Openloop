@@ -49,7 +49,7 @@ testpaths = ["tests"]
 addopts = "-q"
 
 [tool.coverage.run]
-source = ["src/openloop"]
+source = ["openloop"]
 branch = true
 
 [tool.coverage.report]

@@ -26,7 +26,7 @@ jobs:
         run: ruff check src tests experiments tools
 
       - name: Tests as their own step
-        run: python -m pytest --junitxml=junit.xml --cov=src/openloop --cov-report=json --cov-report=xml -q
+        run: python -m pytest --junitxml=junit.xml --cov=openloop --cov-report=json --cov-report=xml -q
 
       - name: Enforce the coverage floor
         run: |
