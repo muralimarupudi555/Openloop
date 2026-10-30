@@ -61,7 +61,8 @@ class _Server:
                 # No starts during the stall. Park until it ends; the
                 # wake event re-runs this pump at stall_end.
                 heapq.heappush(
-                    self._events, (self._spec.stall_end_s, next(self._counter), _WAKE, None)
+                    self._events,
+                    (self._spec.stall_end_at(now), next(self._counter), _WAKE, None),
                 )
                 return
             request = self._queue.popleft()

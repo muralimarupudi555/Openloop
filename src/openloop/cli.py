@@ -38,6 +38,7 @@ _SPEC_FLAGS = (
     ("server-capacity", int),
     ("stall-start-s", float),
     ("stall-duration-s", float),
+    ("stall-period-s", float),
     ("warmup-s", float),
 )
 

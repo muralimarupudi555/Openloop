@@ -1,0 +1,41 @@
+{
+  "closed": {
+    "completed": 12001,
+    "generator": "closed",
+    "intended": 12001,
+    "max_ms": 23.757,
+    "omitted": 0,
+    "omitted_fraction": 0.0,
+    "percentiles_ms": {
+      "50.0": 9.687,
+      "90.0": 13.298,
+      "99.0": 17.202,
+      "99.9": 20.558
+    },
+    "sent": 12001
+  },
+  "omitted_without_stall": 0,
+  "open": {
+    "completed": 11911,
+    "generator": "open",
+    "intended": 11911,
+    "max_ms": 23.757,
+    "omitted": 0,
+    "omitted_fraction": 0.0,
+    "percentiles_ms": {
+      "50.0": 9.687,
+      "90.0": 13.298,
+      "99.0": 17.202,
+      "99.9": 20.558
+    },
+    "sent": 11911
+  },
+  "p50_delta_pct": 0.0,
+  "p99_delta_pct": 0.0,
+  "question": "do the generators agree when nothing is wrong?",
+  "spec": {
+    "duration_s": 60.0,
+    "rate_rps": 200.0,
+    "stall": null
+  }
+}

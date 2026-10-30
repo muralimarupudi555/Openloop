@@ -45,6 +45,7 @@ class WorkloadSpec:
     server_capacity: int = 16
     stall_start_s: float | None = None
     stall_duration_s: float = 0.0
+    stall_period_s: float | None = None
     warmup_s: float = 0.0
     extra: dict = field(default_factory=dict, compare=False)
 
@@ -76,19 +77,79 @@ class WorkloadSpec:
             raise WorkloadError(
                 f"warmup_s must be inside [0, duration_s), got {self.warmup_s}"
             )
+        if self.stall_period_s is not None:
+            if self.stall_start_s is None:
+                raise WorkloadError("stall_period_s needs stall_start_s to anchor the first stall")
+            if self.stall_period_s <= self.stall_duration_s:
+                raise WorkloadError(
+                    f"stall_period_s ({self.stall_period_s}) must exceed "
+                    f"stall_duration_s ({self.stall_duration_s}), or the server never runs"
+                )
 
     @property
     def stall_end_s(self) -> float:
-        """End of the stall window, or 0.0 when there is no stall."""
+        """End of the first stall window, or 0.0 when there is no stall."""
         if self.stall_start_s is None:
             return 0.0
         return self.stall_start_s + self.stall_duration_s
 
     def in_stall(self, t: float) -> bool:
-        """True when a service start at time ``t`` must be deferred."""
+        """True when a service start at time ``t`` must be deferred.
+
+        With ``stall_period_s`` set, the stall recurs: windows of
+        ``stall_duration_s`` open every period, starting at
+        ``stall_start_s``. That is the shape of a recurring pause, a
+        garbage collector or a deploy freeze, and it is the scenario
+        where quantile arithmetic makes a single stall invisible.
+        """
         if self.stall_start_s is None or self.stall_duration_s == 0:
             return False
-        return self.stall_start_s <= t < self.stall_end_s
+        if t < self.stall_start_s:
+            return False
+        if self.stall_period_s is None:
+            return t < self.stall_end_s
+        window_start, window_end = self._window_around(t)
+        return window_start <= t < window_end
+
+    def _window_around(self, t: float) -> tuple[float, float]:
+        """Bounds of the stall window whose period slot contains ``t``.
+
+        Computed from the window index, never from a modulo phase.
+        The first version reconstructed the window end as
+        ``t - phase + duration``: at a simulator wakeup scheduled for
+        exactly the window end, the float phase came back a hair below
+        the duration, in_stall stayed true, and the next wakeup landed
+        one ulp later. The event loop then ground through billions of
+        sub-nanosecond wakeups, which presented as a hung test run.
+        Index arithmetic makes the wakeup time and the comparison the
+        same float expression, so the boundary is exact.
+        """
+        k = int((t - self.stall_start_s) // self.stall_period_s)
+        window_start = self.stall_start_s + k * self.stall_period_s
+        return window_start, window_start + self.stall_duration_s
+
+    def stall_end_at(self, t: float) -> float:
+        """End of the stall window containing ``t``.
+
+        Only meaningful when ``in_stall(t)`` is true; the simulator and
+        the target both ask this question to know when to wake up.
+        """
+        if self.stall_period_s is None:
+            return self.stall_end_s
+        return self._window_around(t)[1]
+
+    def stall_windows(self) -> list[tuple[float, float]]:
+        """Every stall window inside the run, for accounting and tests."""
+        if self.stall_start_s is None or self.stall_duration_s == 0:
+            return []
+        if self.stall_period_s is None:
+            return [(self.stall_start_s, self.stall_end_s)]
+        windows = []
+        start = self.stall_start_s
+        while start < self.duration_s:
+            windows.append((start, start + self.stall_duration_s))
+            start += self.stall_period_s
+        return windows
 
     @property
     def pacing_interval_s(self) -> float:

@@ -142,3 +142,42 @@ class TestOpenVersusClosed:
         closed_result = run_closed_loop(saturating_spec)
         assert open_result.percentile(99.0) > 2 * closed_result.percentile(99.0)
         assert closed_result.omitted > 0
+
+
+class TestPeriodicStallInTheSimulator:
+    def _spec(self, **overrides):
+        base = dict(
+            seed=3,
+            duration_s=30.0,
+            rate_rps=100.0,
+            workers=4,
+            service_mean_s=0.008,
+            server_capacity=16,
+            stall_start_s=5.0,
+            stall_duration_s=0.4,
+        )
+        base.update(overrides)
+        return WorkloadSpec(**base)
+
+    def test_no_service_starts_inside_any_recurring_window(self):
+        spec = self._spec(stall_period_s=10.0)
+        for result in (run_open_loop(spec), run_closed_loop(spec)):
+            for start, _svc in result.service_starts:
+                assert not spec.in_stall(start)
+
+    def test_recurring_stalls_multiply_the_omission(self):
+        one = run_closed_loop(self._spec()).omitted
+        three = run_closed_loop(self._spec(stall_period_s=10.0)).omitted
+        assert three > 2 * one
+
+    def test_omission_tracks_rate_times_total_stalled_time(self):
+        spec = self._spec(stall_period_s=10.0)
+        stalled_time = sum(end - start for start, end in spec.stall_windows())
+        result = run_closed_loop(spec)
+        expected = spec.rate_rps * stalled_time
+        assert 0.5 * expected <= result.omitted <= 1.5 * expected
+
+    def test_recurring_stalls_remain_deterministic(self):
+        spec = self._spec(stall_period_s=10.0)
+        a, b = run_open_loop(spec), run_open_loop(spec)
+        assert a.histogram.counts() == b.histogram.counts()

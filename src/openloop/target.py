@@ -63,8 +63,8 @@ def build_app(spec: WorkloadSpec, clock=time.monotonic):
         # Rule: no service may start inside the stall window. Waiting
         # happens before a slot is taken, matching the simulator, where
         # a stalled server holds no capacity for queued requests.
-        if spec.in_stall(elapsed()):
-            await asyncio.sleep(max(0.0, spec.stall_end_s - elapsed()))
+        while spec.in_stall(elapsed()):
+            await asyncio.sleep(max(0.0, spec.stall_end_at(elapsed()) - elapsed()))
         async with slots:
             await asyncio.sleep(svc)
         return {"served": True}

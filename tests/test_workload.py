@@ -205,3 +205,80 @@ class TestTomlLoading:
 class TestStallEndWithoutAStall:
     def test_stall_end_without_a_stall_is_zero(self):
         assert WorkloadSpec().stall_end_s == 0.0
+
+
+class TestPeriodicStall:
+    def test_a_period_without_a_start_is_refused(self):
+        with pytest.raises(WorkloadError, match="anchor"):
+            WorkloadSpec(stall_period_s=10.0, stall_duration_s=0.5)
+
+    @pytest.mark.parametrize("period", [0.5, 0.4, 0.0])
+    def test_a_period_not_exceeding_the_duration_is_refused(self, period):
+        with pytest.raises(WorkloadError):
+            WorkloadSpec(stall_start_s=1.0, stall_duration_s=0.5, stall_period_s=period)
+
+    @pytest.mark.parametrize(
+        "t,expected",
+        [
+            (4.9, False),
+            (5.0, True),
+            (5.49, True),
+            (5.5, False),
+            (14.9, False),
+            (15.0, True),
+            (15.2, True),
+            (15.5, False),
+            (25.0, True),
+        ],
+    )
+    def test_the_stall_recurs_every_period(self, t, expected):
+        spec = WorkloadSpec(
+            duration_s=30.0, stall_start_s=5.0, stall_duration_s=0.5, stall_period_s=10.0
+        )
+        assert spec.in_stall(t) is expected
+
+    def test_before_the_first_stall_nothing_stalls(self):
+        spec = WorkloadSpec(
+            duration_s=30.0, stall_start_s=5.0, stall_duration_s=0.5, stall_period_s=10.0
+        )
+        assert not spec.in_stall(0.0)
+
+    def test_stall_end_at_points_at_the_current_window(self):
+        spec = WorkloadSpec(
+            duration_s=30.0, stall_start_s=5.0, stall_duration_s=0.5, stall_period_s=10.0
+        )
+        assert spec.stall_end_at(15.2) == pytest.approx(15.5)
+        assert spec.stall_end_at(5.0) == pytest.approx(5.5)
+
+    def test_stall_windows_enumerates_every_window_in_the_run(self):
+        spec = WorkloadSpec(
+            duration_s=30.0, stall_start_s=5.0, stall_duration_s=0.5, stall_period_s=10.0
+        )
+        assert spec.stall_windows() == [(5.0, 5.5), (15.0, 15.5), (25.0, 25.5)]
+
+    def test_a_single_stall_yields_one_window(self):
+        spec = WorkloadSpec(duration_s=30.0, stall_start_s=5.0, stall_duration_s=0.5)
+        assert spec.stall_windows() == [(5.0, 5.5)]
+
+    def test_no_stall_yields_no_windows(self):
+        assert WorkloadSpec().stall_windows() == []
+
+
+class TestStallBoundaryExactness:
+    @pytest.mark.parametrize("t", [5.0, 5.1, 5.2999999, 15.0, 15.49999, 95.0, 95.2, 1005.3])
+    def test_the_wakeup_time_for_a_stalled_moment_is_never_itself_stalled(self, t):
+        """Pins the hang: a wakeup at the window end must leave the stall.
+
+        The first periodic implementation reconstructed the window end
+        from a float modulo phase. At the scheduled wakeup time the
+        recomputed phase came back one ulp below the duration, so the
+        simulator saw itself still stalled and scheduled another wakeup
+        one ulp later, billions of times. The symptom was a test run
+        that never finished. This test holds the boundary exact for
+        times across many periods, where the float error accumulates.
+        """
+        spec = WorkloadSpec(
+            duration_s=2000.0, stall_start_s=5.0, stall_duration_s=0.5, stall_period_s=10.0
+        )
+        if spec.in_stall(t):
+            assert not spec.in_stall(spec.stall_end_at(t))

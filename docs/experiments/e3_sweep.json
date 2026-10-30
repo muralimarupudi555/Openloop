@@ -1,0 +1,61 @@
+{
+  "divergence_ratio": 1.5,
+  "knee_rps": 360.0,
+  "points": [
+    {
+      "closed_omitted": 0,
+      "closed_p99_ms": 34.4,
+      "open_p99_ms": 34.4,
+      "rate_rps": 100.0,
+      "ratio": 1.0
+    },
+    {
+      "closed_omitted": 0,
+      "closed_p99_ms": 34.4,
+      "open_p99_ms": 34.4,
+      "rate_rps": 160.0,
+      "ratio": 1.0
+    },
+    {
+      "closed_omitted": 41,
+      "closed_p99_ms": 35.09,
+      "open_p99_ms": 35.09,
+      "rate_rps": 220.0,
+      "ratio": 1.0
+    },
+    {
+      "closed_omitted": 472,
+      "closed_p99_ms": 34.4,
+      "open_p99_ms": 37.98,
+      "rate_rps": 280.0,
+      "ratio": 1.1
+    },
+    {
+      "closed_omitted": 1256,
+      "closed_p99_ms": 34.4,
+      "open_p99_ms": 47.23,
+      "rate_rps": 320.0,
+      "ratio": 1.37
+    },
+    {
+      "closed_omitted": 2429,
+      "closed_p99_ms": 34.4,
+      "open_p99_ms": 73.01,
+      "rate_rps": 360.0,
+      "ratio": 2.12
+    },
+    {
+      "closed_omitted": 3044,
+      "closed_p99_ms": 34.4,
+      "open_p99_ms": 110.66,
+      "rate_rps": 380.0,
+      "ratio": 3.22
+    }
+  ],
+  "question": "at what offered load do the generators diverge with no stall?",
+  "server": {
+    "capacity": 8,
+    "service_mean_s": 0.02,
+    "theoretical_max_rps": 400.0
+  }
+}

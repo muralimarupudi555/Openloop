@@ -1,0 +1,46 @@
+{
+  "closed": {
+    "completed": 11907,
+    "generator": "closed",
+    "intended": 12001,
+    "max_ms": 505.341,
+    "omitted": 94,
+    "omitted_fraction": 0.007833,
+    "percentiles_ms": {
+      "50.0": 9.687,
+      "90.0": 13.298,
+      "99.0": 17.546,
+      "99.9": 22.253
+    },
+    "sent": 11907
+  },
+  "closed_p99_blind_to_stall": true,
+  "closed_stall_samples": 8,
+  "closed_stall_share_pct": 0.067,
+  "omitted": 94,
+  "omitted_fraction_pct": 0.78,
+  "open": {
+    "completed": 11911,
+    "generator": "open",
+    "intended": 11911,
+    "max_ms": 505.521,
+    "omitted": 0,
+    "omitted_fraction": 0.0,
+    "percentiles_ms": {
+      "50.0": 9.687,
+      "90.0": 13.564,
+      "99.0": 20.558,
+      "99.9": 451.453
+    },
+    "sent": 11911
+  },
+  "question": "how much does the closed loop understate one 500 ms stall?",
+  "spec": {
+    "duration_s": 60.0,
+    "rate_rps": 200.0,
+    "stall_duration_s": 0.5,
+    "stall_start_s": 30.0
+  },
+  "understatement_p50": 1.0,
+  "understatement_p99": 1.2
+}
