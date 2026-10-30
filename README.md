@@ -42,7 +42,7 @@ moves to the tail that can see it, where the gap is 20.3x at p99.9. A demo that 
 dramatic stall and quotes p99 is choosing the one quantile arrangement that flatters nobody's
 production system.
 
-Credibility line: 201 tests named as properties, 99.4 percent line and branch coverage, every
+Credibility line: 203 tests named as properties, 99.4 percent line and branch coverage, every
 figure above re-measured in CI by `tools/collect_metrics.py` and held against this document by
 `tools/check_numbers.py`, which fails the build on a stale claim.
 
@@ -58,7 +58,7 @@ pip install -e ".[dev]"
 python -m openloop.cli compare --seed 7 --duration-s 60 --rate-rps 200 --workers 8 \
     --server-capacity 16 --stall-start-s 5 --stall-duration-s 0.5 --stall-period-s 10
 
-# Everything: lint, 201 tests, four experiments, receipts
+# Everything: lint, 203 tests, four experiments, receipts
 make verify
 ```
 
@@ -194,7 +194,7 @@ witness, validated within 25 percent on the shapes that matter by E4.
 
 ```text
 src/openloop/        workload, sim, histogram, results, target, wallclock, cli
-tests/               201 property-named tests
+tests/               203 property-named tests
 experiments/         e1_null, e2_stall, e3_sweep, e4_sim_vs_wall
 tools/               collect_metrics, check_numbers, render_chart, record_demo
 docs/                adr/ (five decisions), experiments/ (JSON), evidence/, metrics.json

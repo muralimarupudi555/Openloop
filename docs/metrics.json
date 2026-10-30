@@ -100,7 +100,7 @@
     "e3_top_ratio": 3.22,
     "e4_tolerance_pct": 25,
     "hist_error_pct": 0.995,
-    "tests_total": 201
+    "tests_total": 203
   },
   "note": "every value here is produced by running the suite and the experiments",
   "required_in_readme": [
